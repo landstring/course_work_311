@@ -5,6 +5,7 @@ import com.example.econom_main.Product.dtos.CategoryListDto;
 import com.example.econom_main.Product.dtos.ProductDto;
 import com.example.econom_main.Product.entities.cart.ShopCart;
 import com.example.econom_main.Product.entities.product_cost.ProductCost;
+import com.example.econom_main.Product.exceptions.ProductNotFoundException;
 import com.example.econom_main.Product.services.CartService;
 import com.example.econom_main.Product.services.ProductCostService;
 import com.example.econom_main.Product.services.ProductService;
@@ -59,7 +60,7 @@ public class RestProductController {
     }
 
     @GetMapping("/cart")
-    private List<ShopCart> getCart(@RequestHeader("Authorization") String token) throws Exception {
+    private List<ShopCart> getCart(@RequestHeader("Authorization") String token) {
         return cartService.getCart(token);
     }
 

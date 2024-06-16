@@ -1,6 +1,7 @@
 package com.example.econom_main.Product.entities.cart;
 
 import com.example.econom_main.Product.dtos.CartItem;
+import com.example.econom_main.Product.exceptions.ProductNotFoundInCartException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ public class ShopCart implements Serializable {
     }
 
     public void deleteCartItem(Long product_id){
+        boolean deleted = false;
         for (int i =0; i < products.size(); i++){
             if (Objects.equals(products.get(i).product_id, product_id)){
+                deleted = true;
                 total -= products.get(i).cost.price;
                 total = Math.round(total * 100) / 100.0;
                 if (products.get(i).count == 1){
@@ -47,6 +50,9 @@ public class ShopCart implements Serializable {
                 }
                 break;
             }
+        }
+        if (!deleted){
+            throw new ProductNotFoundInCartException();
         }
     }
 }

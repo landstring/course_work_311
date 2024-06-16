@@ -5,6 +5,8 @@ import com.example.econom_main.Product.dtos.CategoryListDto;
 import com.example.econom_main.Product.dtos.ProductDto;
 import com.example.econom_main.Product.entities.Category;
 import com.example.econom_main.Product.entities.product_cost.Product;
+import com.example.econom_main.Product.exceptions.CategoryNotFoundException;
+import com.example.econom_main.Product.exceptions.ProductNotFoundException;
 import com.example.econom_main.Product.mappers.CategoryMapper;
 import com.example.econom_main.Product.mappers.ProductMapper;
 import com.example.econom_main.Product.repositories.CategoryRepository;
@@ -86,6 +88,9 @@ public class ProductService {
         if (optionalCategory.isPresent()){
             category = optionalCategory.get();
         }
+        else{
+            throw new CategoryNotFoundException();
+        }
         return category;
     }
 
@@ -96,7 +101,7 @@ public class ProductService {
             product = optionalProduct.get();
         }
         else{
-            throw new RuntimeException("Product not found for id: " + id);
+            throw new ProductNotFoundException();
         }
         return product;
     }
